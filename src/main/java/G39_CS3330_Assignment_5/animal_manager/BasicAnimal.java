@@ -34,30 +34,37 @@ class BasicAnimal extends Pet {
 		return age;
 	}
 	
+	@Override
 	public Boolean getAdopted() {
 		return adopted;
 	}
 	
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 	
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	@Override
 	public void setType(String type) {
 		this.type = type;
 	}
 	
-	public void setSepcies(String species) {
+	@Override
+	public void setSpecies(String species) {
 		this.species = species;
 	}
 	
+	@Override
 	public void setAge(int age) {
 		this.age = age;
 	}
 	
+	@Override
 	public void setAdopted(Boolean adopted) {
 		this.adopted = adopted;
 	}
