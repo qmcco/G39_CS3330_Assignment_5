@@ -1,18 +1,26 @@
 package G39_CS3330_Assignment_5.animal_manager;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
-
+/**
+ * Class that represents all GUI elements of the app
+ * is the View in the MVC format
+ * Creates and displays the swing frame, as well as all of the buttons, labels, and the list within the frame
+ * certain buttons and text fields are represented as fields as they are accessed by the controller to facilitate
+ * reading from text fields and performing actions based on button presses
+ */
 class ShelterView {
 	int sort = 0;
 	JButton button = new JButton("Name Sort");
 	JButton ageButton = new JButton("Age Sort");
 	JButton specButton = new JButton("Species Sort");
+	JButton writeButton = new JButton("Write to File");
 	JButton adoptButton = new JButton("Adopt");
 	JButton addButton = new JButton("Add New");
 	JButton remButton = new JButton("Remove");
@@ -22,10 +30,10 @@ class ShelterView {
 	JTextField species = new JTextField("");
 	JLabel adoptLabel = new JLabel("");
 	JList list;
-	private JFrame frame = new JFrame();
+	private JFrame frame = new JFrame("OOP Animal Rescue");
 	private DefaultListModel<String> listModel;
 	public void initShelterView(List<Pet> shelterList) {
-		// Creating instance of JFrame
+		
 		listModel = new DefaultListModel<>();
 		
 		for(int i = 0; i < shelterList.size(); i++) {
@@ -42,10 +50,13 @@ class ShelterView {
         JLabel ageLabel = new JLabel("Age:");
         JLabel typeLabel = new JLabel("Type:");
         JLabel speciesLabel = new JLabel("Species:");
+        JLabel titleLabel = new JLabel("Our Family:");
         nameLabel.setBounds(280, 50, 100, 25);
         ageLabel.setBounds(465, 50, 100, 25);
         typeLabel.setBounds(287, 110, 100, 25);
         speciesLabel.setBounds(442, 110, 100, 25);
+        titleLabel.setBounds(50, 20, 150, 25);
+        titleLabel.setFont(new Font("Arial", Font.ITALIC | Font.BOLD, 20));
         adoptLabel.setBounds(300, 165, 75, 25);
         name.setBounds(325, 50, 100, 25);
         age.setBounds(500, 50, 25, 25);
@@ -55,19 +66,23 @@ class ShelterView {
         frame.add(ageLabel);
         frame.add(typeLabel);
         frame.add(speciesLabel);
+        frame.add(titleLabel);
         frame.add(adoptLabel);
         frame.add(name);
         frame.add(age);
         frame.add(type);
         frame.add(species);
-        // x axis, y axis, width, height
-        adoptButton.setBounds(500, 165, 85, 25);
-        addButton.setBounds(500, 195, 85, 25);
-        remButton.setBounds(500, 225, 85, 25);
+        adoptButton.setBounds(500, 165, 150, 25);
+        addButton.setBounds(500, 195, 150, 25);
+        remButton.setBounds(500, 225, 150, 25);
+        writeButton.setBounds(500, 255, 150, 25);
         button.setBounds(50, 355, 200, 30);
         ageButton.setBounds(50, 390, 200, 30);
         specButton.setBounds(50, 425, 200, 30);
         
+        /**
+         * Displays selected list item in the text field
+         */
         list.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) { 
@@ -96,30 +111,24 @@ class ShelterView {
 			}
         });
         
-        // adding button in JFrame
+        
         frame.add(button);
         frame.add(adoptButton);
         frame.add(addButton);
         frame.add(remButton);
         frame.add(ageButton);
         frame.add(specButton);
-
-        // 400 width and 500 height
+        frame.add(writeButton);
         frame.setSize(800, 500);
-        
-
-        // using no layout managers
         frame.setLayout(null);
-
-        // making the frame visible
         frame.setVisible(true);
-        
-		
-		
 	}
 	
 	
-	
+	/**
+	 * update displayed list in the View
+	 * @param shelterList the list to be used to update the View list
+	 */
 	public void updateList(List<Pet> shelterList) {
 		listModel.clear();
 		for(int i = 0; i < shelterList.size(); i++) {

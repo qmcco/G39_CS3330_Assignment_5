@@ -4,13 +4,20 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.*;
 
 import javax.swing.JOptionPane;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 
+/**
+ * class that facilitates interaction between ShelterView and Shelter by both displaying data within the Model on the View, and updating data
+ * in the Model according to user actions in the View
+ * is the Controller in the MVC format
+ */
 class ShelterController {
 	private Shelter<Pet> shelter;
 	private ShelterView shelterView;
@@ -19,6 +26,9 @@ class ShelterController {
 		this.shelter = shelter;
 		this.shelterView = shelterView;
 	}
+	/**
+	 * Initialize the Shelter by reading from the two input JSON files and storing the animals to the shelterList
+	 */
 	public void initShelter() {
 		Gson gson = new Gson();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -38,7 +48,6 @@ class ShelterController {
 				Pet tempPet = Collections.max(shelter.shelterList, new Id());
 				temp.setId(tempPet.getId() + 1);
 				shelter.addPet(temp);
-				System.out.println(temp.getId());
 			}
 			
 		}catch(IOException e) {
@@ -46,9 +55,38 @@ class ShelterController {
 		}
 		
 	}
-	
+	/**
+	 * Initialize the view by calling the view module that creates the GUI elements
+	 * facilitates actions on button press for all buttons within the View
+	 * This includes writeButton which writes current list to a JSON file
+	 * button which represents basic Name sorting of the list
+	 * ageButton sorts list by age
+	 * specButton sorts list by Species
+	 * remButton removes the currently selected element in the list
+	 * addButton adds a new pet to the list given the proper fields are filled out and valid, and that the pet is not already in the list
+	 * adoptButton sets the currently selected pets status to adopted
+	 * 
+	 */
 	public void initView() {
 		shelterView.initShelterView(shelter.shelterList);
+		shelterView.writeButton.addActionListener(new ActionListener() {
+        	
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		LocalDateTime curDateTime = LocalDateTime.now();
+        		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        		String dateTime = curDateTime.format(format);
+        		String fileName = dateTime + "_pets.json";
+        		Gson builder = new GsonBuilder().setPrettyPrinting().create();
+        		try(FileWriter write = new FileWriter(fileName)){
+        			for(int i = 0; i < shelter.shelterList.size(); i++) {
+        				builder.toJson(shelter.shelterList.get(i), write);
+        			}
+        		}catch(IOException g) {
+        			g.printStackTrace();
+        		}
+        	}
+        });
 		shelterView.button.addActionListener(new ActionListener() {
         	
         	@Override
@@ -125,7 +163,6 @@ class ShelterController {
         		}
         		try {
 	        		if(addVal == 0) {
-	        			System.out.println(shelterView.name.getText());
 	        			if(shelterView.name.getText().matches("[a-zA-Z]+")) {
 		        			BasicAnimal temp = new BasicAnimal();
 		        			Pet tempPet = Collections.max(shelter.shelterList, new Id());
@@ -150,7 +187,9 @@ class ShelterController {
         	}
         });
 	}
-	
+	/**
+	 * Update list in the View, called by sort buttons after a sort
+	 */
 	public void sortViewList() {
 		shelterView.updateList(shelter.shelterList);
 	}

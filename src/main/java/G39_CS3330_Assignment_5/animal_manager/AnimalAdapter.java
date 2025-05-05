@@ -1,6 +1,14 @@
 package G39_CS3330_Assignment_5.animal_manager;
-
+/**
+ * Adapter class to facilitate use of the third party ExoticAnimal 
+ * class within the abstract Pet class based animal shelter adoption system
+ * 
+ */
 class AnimalAdapter extends Pet {
+	/**
+	 * name, type, species, and age fields can be extracted from the ExoticAnimal object
+	 * id and adopted status fields have to be set separately 
+	 */
 	private ExoticAnimal exoticAnimal;
 	Boolean adopted = false;
 	int id = 0;

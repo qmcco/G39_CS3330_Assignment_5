@@ -1,5 +1,7 @@
 package G39_CS3330_Assignment_5.animal_manager;
-
+/**
+ * Base class of ExoticAnimal third party type, facilitates reading from the exotic_animals.json input file
+ */
 class ExoticAnimal {
 	String uniqueId;
 	String animalName;

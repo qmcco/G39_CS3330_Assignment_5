@@ -1,5 +1,8 @@
 package G39_CS3330_Assignment_5.animal_manager;
-
+/**
+ * extended class from Pet that Contains all of the base fields
+ * this class reads from the Pets.JSON file
+ */
 class BasicAnimal extends Pet {
 	int id;
 	String name;

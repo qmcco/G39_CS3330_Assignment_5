@@ -1,7 +1,11 @@
 package G39_CS3330_Assignment_5.animal_manager;
 
 import java.util.*;
-
+/**
+ * The abstract class from which the BasicAnimal and AnimalAdapter classes extend
+ * compareTo() Comparable compares Pet names (facilitates sorting by names)
+ * implementations of Comparator Age and Species compare Age and Species Pet fields (facilitate Age and Species sorting)
+ */
 abstract class Pet implements java.lang.Comparable<Pet>{
 	public abstract String getName();
 	public abstract String getType();
@@ -24,7 +28,6 @@ abstract class Pet implements java.lang.Comparable<Pet>{
 			return compVal;
 		}
 		else {
-			System.out.println("TEST");
 			return 0;
 		}
 		
