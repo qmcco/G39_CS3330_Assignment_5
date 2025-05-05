@@ -24,6 +24,7 @@ abstract class Pet implements java.lang.Comparable<Pet>{
 			return compVal;
 		}
 		else {
+			System.out.println("TEST");
 			return 0;
 		}
 		

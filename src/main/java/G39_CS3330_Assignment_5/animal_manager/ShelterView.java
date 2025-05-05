@@ -10,14 +10,17 @@ import javax.swing.event.*;
 
 class ShelterView {
 	int sort = 0;
-	JButton button = new JButton("Sort");
+	JButton button = new JButton("Name Sort");
+	JButton ageButton = new JButton("Age Sort");
+	JButton specButton = new JButton("Species Sort");
 	JButton adoptButton = new JButton("Adopt");
 	JButton addButton = new JButton("Add New");
-	JTextField name = new JTextField(" ");
-	JTextField age = new JTextField(" ");
-	JTextField type = new JTextField(" ");
-	JTextField species = new JTextField(" ");
-	JLabel adoptLabel = new JLabel(" ");
+	JButton remButton = new JButton("Remove");
+	JTextField name = new JTextField("");
+	JTextField age = new JTextField("");
+	JTextField type = new JTextField("");
+	JTextField species = new JTextField("");
+	JLabel adoptLabel = new JLabel("");
 	JList list;
 	private JFrame frame = new JFrame();
 	private DefaultListModel<String> listModel;
@@ -60,7 +63,10 @@ class ShelterView {
         // x axis, y axis, width, height
         adoptButton.setBounds(500, 165, 85, 25);
         addButton.setBounds(500, 195, 85, 25);
-        button.setBounds(50, 360, 75, 50);
+        remButton.setBounds(500, 225, 85, 25);
+        button.setBounds(50, 355, 200, 30);
+        ageButton.setBounds(50, 390, 200, 30);
+        specButton.setBounds(50, 425, 200, 30);
         
         list.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -81,11 +87,11 @@ class ShelterView {
 					}
 				}
 				else {
-					name.setText(" ");
-					age.setText(" ");
-					type.setText(" ");
-					species.setText(" ");
-					adoptLabel.setText(" ");
+					name.setText("");
+					age.setText("");
+					type.setText("");
+					species.setText("");
+					adoptLabel.setText("");
 				}
 			}
         });
@@ -94,6 +100,9 @@ class ShelterView {
         frame.add(button);
         frame.add(adoptButton);
         frame.add(addButton);
+        frame.add(remButton);
+        frame.add(ageButton);
+        frame.add(specButton);
 
         // 400 width and 500 height
         frame.setSize(800, 500);
